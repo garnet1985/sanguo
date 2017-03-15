@@ -11,8 +11,13 @@ game.constant('cfg', {
             large: 80000,
             normal: 50000
         }
+    },
+    gameStartDate: {
+        year: 189,
+        month: 9
+    },
+    gameEndDate: {
+        year: 280,
+        month: 12
     }
-
-
-
 });

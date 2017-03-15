@@ -277,6 +277,7 @@ main{
 .dialog .mapDialog.active{
 	display: block;
 }
+.date,
 .dialog .mapDialog .msg-dialog,
 .dialog .mapDialog .msg-aside{
 	position: absolute;
@@ -288,6 +289,18 @@ main{
 	transition: all .3s ease;
 	left: 20px;
 	top: 20px;
+}
+.date{
+	width: 260px;
+	text-align: center;
+	font-size: 1.25rem;
+	z-index: 500;
+}
+.date.left{
+	left: 1000px;
+}
+.date.top{
+	top: 650px;
 }
 .dialog .mapDialog .msg-aside{
 	width: 300px;
@@ -319,9 +332,30 @@ main{
 	line-height: 1.5rem;
 	padding-left: 5px;
 }
-
-
-
+.dialog .msg-body{
+	padding: 5px 10px;
+	text-align: center;
+}
+.dialog .operations * {
+	transition: all .3s ease;
+}
+.dialog .operations .main-nav li{
+	float: left;
+	width: 25%;
+	text-align: center;
+	cursor: pointer;
+}
+.dialog .operations .main-nav .title{
+	margin-top: 10px;
+}
+.dialog .operations .main-nav .opts-icon{
+	display: inline-block;
+	border: 2px solid #333;
+	border-radius: 4px;
+	width: 120px;
+	height: 120px;
+	margin-top: 10px;
+}
 /*bg-color: #ffc8b9;*/
 
 

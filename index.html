@@ -15,6 +15,11 @@
 		<div class="overlay"></div>
 		<main>
 			<div class="grid">
+				<div class="date {{msg.position}}">
+					<span ng-bind="gameData.date.year"></span> 年 
+					<span ng-bind="gameData.date.month"></span> 月 - 
+					令牌 <span ng-bind="gameData.command"></span> 枚
+				</div>
 				<div class="dialog" ng-if="msg">
 					<div class="mapDialog {{msg.position}}" ng-class="{'active': msg.isBattle < 0}">
 						<div class="msg-aside" ng-if="msg.data">
@@ -61,10 +66,22 @@
 							<div class="operations" ng-if="msg.operational">
 								<nav class="main-nav">
 									<ul>
-										<li>内政</li>
-										<li>军政</li>
-										<li>策略</li>
-										<li>人事</li>
+										<li class="policy">
+											<div class="title">内政</div>
+											<div class="opts-icon"></div>
+										</li>
+										<li class="millitary">
+											<div class="title">军政</div>
+											<div class="opts-icon"></div>
+										</li>
+										<li class="tactic">
+											<div class="title">策略</div>
+											<div class="opts-icon"></div>
+										</li>
+										<li class="human-resource">
+											<div class="title">人事</div>
+											<div class="opts-icon"></div>
+										</li>
 									</ul>
 								</nav>
 							</div>

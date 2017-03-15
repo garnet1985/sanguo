@@ -1,4 +1,4 @@
-game.service('game', ['cache', 'core', function(cache, core){
+game.service('game', ['cache', 'core', 'cfg', function(cache, core, cfg){
 
 	var _this = this;
 
@@ -19,6 +19,8 @@ game.service('game', ['cache', 'core', function(cache, core){
 		cache.buildKingdom();
 		cache.buildData.cities = core.calc('population', cache.buildData.cities);
 		cache.buildData.cities = core.calc('morale', cache.buildData.cities);
+		cache.buildData.cities = core.calc('cityScale', cache.buildData.cities);
+		cache.buildData.date = angular.copy(cfg.gameStartDate);
 	}
 
 }]);
@@ -241,6 +243,56 @@ game.service('core', ['cfg', 'service', 'ui', function(cfg, service, ui){
 		entities = tmp.arr;
 
 		switch(type){
+			case 'command':
+				entities.forEach(function(kingdom){
+					kingdom.command = 0;
+					switch(kingdom.cities.length){
+						case 1:
+							kingdom.command = 3;
+							break;
+						case 1:
+							kingdom.command = 4;
+							break;
+						case 1:
+							kingdom.command = 5;
+							break;
+						case 1:
+							kingdom.command = 6;
+							break;
+						case 1:
+							kingdom.command = 7;
+							break;
+						case 1:
+							kingdom.command = 8;
+							break;
+						case 1:
+							kingdom.command = 9;
+							break;
+						case 1:
+							kingdom.command = 10;
+							break;
+						case 1:
+							kingdom.command = 11;
+							break;
+						case 1:
+							kingdom.command = 12;
+							break;
+					}
+					result.push(city);
+				});
+				break;
+			case 'cityScale': 
+				entities.forEach(function(city){
+					city.isLargeCity = false;
+					if(city.agriculture.max >= 100){
+						city.isLargeCity = true;
+					}
+					if(city.merchant.max >= 100){
+						city.isLargeCity = true;
+					}
+					result.push(city);
+				});
+				break;
 			case 'level':
 				entities.forEach(function(person){
 					person.level = Math.ceil(person.exp/cfg.gameConstant.expThreshold);

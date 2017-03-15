@@ -22,7 +22,9 @@ game.controller("main", ['service', 'game', 'core', 'ui', 'msg', '$scope', funct
 	// debug code:
 	$scope.gameData = game.newGame();
 	$scope.playerKingdom = $scope.gameData.kingdoms[0];
+	console.log("game data:");
 	console.log($scope.gameData);
+	console.log("player kingdom:");
 	console.log($scope.playerKingdom);
 
 	if($scope.scene == 1){

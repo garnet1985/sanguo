@@ -29,8 +29,7 @@ game.constant('data', {
 			leader: 2,
 			counsellor: 2,
 			morale: 0,
-			solider: 22000,
-			isLargeCity: false
+			solider: 22000
 		},
 		{
 			id: 2,
@@ -58,8 +57,7 @@ game.constant('data', {
 			leader: 3,
 			counsellor: 5,
 			morale: 0,
-			solider: 40000,
-			isLargeCity: true
+			solider: 40000
 		},
 		{
 			id: 3,
@@ -87,8 +85,7 @@ game.constant('data', {
 			leader: 4,
 			counsellor: 1,
 			morale: 0,
-			solider: 23000,
-			isLargeCity: true
+			solider: 23000
 		}
 	],
 	// 武将
@@ -303,14 +300,14 @@ game.constant('data', {
 			id: 1,
 			lord: 2,
 			color: '1368c0',
-			cities: [1,2,3],
+			cities: [1,2],
 			ancestor: [],
 		},
 		{
 			id: 2,
 			lord: 3,
 			color: '333333',
-			cities: [],
+			cities: [3],
 			ancestor: [],
 		}
 	],
