@@ -1,6 +1,25 @@
-var game = angular.module("game",[]);
-
-game.constant('data', {
+window.gameData = {
+	gameConstant: {
+        expThreshold: 50,
+        maxFood: 1000000,
+        maxMoney: 10000,
+        maxMorale: 100,
+        maxDisasterPrevention: 100,
+        maxPrecious: 100,
+        maxTax: 100,
+        maxSolider: {
+            large: 80000,
+            normal: 50000
+        },
+	    gameStartDate: {
+	        year: 189,
+	        month: 9
+	    },
+	    gameEndDate: {
+	        year: 280,
+	        month: 12
+	    }
+	},
 	// 城池
 	cities: [
 		{
@@ -300,13 +319,20 @@ game.constant('data', {
 			id: 1,
 			lord: 2,
 			color: '1368c0',
-			cities: [1,2],
+			cities: [1],
 			ancestor: [],
 		},
 		{
 			id: 2,
 			lord: 3,
 			color: '333333',
+			cities: [2],
+			ancestor: [],
+		},
+		{
+			id: 3,
+			lord: 1,
+			color: 'ed0c71',
 			cities: [3],
 			ancestor: [],
 		}
@@ -509,8 +535,4 @@ game.constant('data', {
 	],
 	// 执行顺序
 	order: [1,2]
-
-
-
-
-});
+};

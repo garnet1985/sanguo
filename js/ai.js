@@ -1,7 +1,8 @@
-var game = angular.module("game",[]);													
-game.controller("main", ['$scope', function($scope){
+var game = angular.module("game",[]);
+game.controller("main", ['service', 'game', 'core', 'ui', 'msg', '$scope', function(service, game, core, ui, msg, $scope){
 
-	$scope.game = {};
+	$scope.gameData = {};
+	$scope.playerKingdom = {};
 
 	// scene 1: open page
 	// scene 2: map page
@@ -20,20 +21,12 @@ game.controller("main", ['$scope', function($scope){
 
 
 	// debug code:
-	$scope.game = new Game().init();
-
-	$scope.game.selectKindom(1);
-
-	$scope.game.run();
-
-	console.log($scope.game)
-
-	
-	// $scope.playerKingdom = $scope.gameData.kingdoms[0];
-	// console.log("game data:");
-	// console.log($scope.gameData);
-	// console.log("player kingdom:");
-	// console.log($scope.playerKingdom);
+	$scope.gameData = game.newGame();
+	$scope.playerKingdom = $scope.gameData.kingdoms[0];
+	console.log("game data:");
+	console.log($scope.gameData);
+	console.log("player kingdom:");
+	console.log($scope.playerKingdom);
 
 	if($scope.scene == 1){
 		// start game
