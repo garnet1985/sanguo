@@ -23,7 +23,7 @@ Model.prototype.loadEntity = function(entityName, id, fromRawData, callback){
 			}
 		});
 	}else{
-		_this.data[entityName].forEach(function(element){
+		this.data[entityName].forEach(function(element){
 			if(id == element.id){
 				res = element;
 			}

@@ -4,11 +4,14 @@
 		<meta charset="utf-8">
 		<title>霸王的大陆</title>
 		<script type="text/javascript" src="js/library/angular.min.js"></script>
+		<script type="text/javascript" src="js/library/angular-animate.min.js"></script>
 		<script type="text/javascript" src="js/library/velocity.min.js"></script>
+		<script type="text/javascript" src="js/library/chart.min.js"></script>
 		<script type="text/javascript" src="js/data.js"></script>
 		<script type="text/javascript" src="js/util.js"></script>
 		<script type="text/javascript" src="js/model.js"></script>
 		<script type="text/javascript" src="js/entity.js"></script>
+		<script type="text/javascript" src="js/ui.js"></script>
 		<script type="text/javascript" src="js/game.js"></script>
 		<script type="text/javascript" src="js/ai.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
@@ -18,89 +21,8 @@
 		<div class="overlay"></div>
 		<main>
 			<div class="grid">
-				<div class="date {{msg.position}}">
-					<span ng-bind="gameData.date.year"></span> 年 
-					<span ng-bind="gameData.date.month"></span> 月 - 
-					令牌 <span ng-bind="gameData.command"></span> 枚
-				</div>
-				<div class="dialog" ng-if="msg">
-					<div class="mapDialog {{msg.position}}" ng-class="{'active': msg.isBattle < 0}">
-						<div class="msg-aside" ng-if="msg.data">
-							<h1>{{msg.data.name}}</h1> <span>城</span>
-							<span class="counsellor">太守 - <strong>{{msg.data.counsellor.name}}</strong></span>
-							<ul class="city-info">
-								<li>
-									<strong>黄金</strong> - <span>{{msg.data.money}}</span> 斤
-								</li>
-								<li>
-									<strong>军粮</strong> - <span>{{msg.data.food}}</span> 石
-								</li>
-								<li>
-									<strong>土地</strong> - <span>{{msg.data.agriculture.current}}</span>
-								</li>
-								<li>
-									<strong>产业</strong> - <span>{{msg.data.merchant.current}}</span>
-								</li>
-								<li>
-									<strong>人口</strong> - <span>{{msg.data.population}}</span> 人
-								</li>
-								<li>
-									<strong>防灾</strong> - <span>{{msg.data.disasterPrevention}}</span> %
-								</li>
-								<li>
-									<strong>宝物</strong> - <span>{{msg.data.precious}}</span> 件
-								</li>
-								<li>
-									<strong>税收</strong> - <span>{{msg.data.tax}}</span> 成
-								</li>
-								<li>
-									<strong>民心</strong> - <span>{{msg.data.morale}}</span>
-								</li>
-								<li>
-									<strong>将领</strong> - <span>{{msg.data.generals.length}}</span> 名
-								</li>
-								<li>
-									<strong>军士</strong> - <span>{{msg.data.solider}}</span> 名
-								</li>
-							</ul>
-						</div>
-						<div class="msg-dialog">
-							<div class="msg-body">{{msg.body}}</div>
-							<div class="operations" ng-if="msg.operational">
-								<nav class="main-nav">
-									<ul>
-										<li class="policy">
-											<div class="title">内政</div>
-											<div class="opts-icon"></div>
-										</li>
-										<li class="millitary">
-											<div class="title">军政</div>
-											<div class="opts-icon"></div>
-										</li>
-										<li class="tactic">
-											<div class="title">策略</div>
-											<div class="opts-icon"></div>
-										</li>
-										<li class="human-resource">
-											<div class="title">人事</div>
-											<div class="opts-icon"></div>
-										</li>
-									</ul>
-								</nav>
-							</div>
-						</div>
-					</div>
-					<div class="battleDialog {{msg.position}}" ng-class="{'active': msg.isBattle > 0}">
-						<div class="msg-aside">
-							<h2></h2>
-						</div>
-						<div class="msg-dialog">
-							
-						</div>
-					</div>
-				</div>
-				<div ng-if="scene == 1" id="start">
-					<div id="home" ng-if="!subScene">
+				<div ng-if="scene == 'gameStart'" id="start">
+					<div id="home">
 						<div class="banner"></div>
 						<div class="options">
 							<ul>
@@ -116,89 +38,248 @@
 							</ul>
 						</div>
 					</div>
-					<div id="hero-selection" ng-if="subScene == 1">
-						<div class="options">
-							<ul class="clearfix">
-								<li ng-repeat="country in gameData.kingdoms">
-									<a href="#" class="clearfix" ng-click="lordSelected(country)">
-										<div class="lord-name" ng-bind='country.lord.name'></div>
-										<div class="city kingdom-{{country.id}}">
-											<span>X</span>
-											<span ng-bind='country.cities.length'></span>
-										</div>
-									</a>
-								</li>
-							</ul>
+				</div>
+				<div id="game" ng-if="scene != 'gameStart'">
+					<div class="msg">
+						<div class="date-msg date {{msg.position}}" ng-if="scene == 'map'">
+							<span ng-bind="game.data.date.year"></span> 年 
+							<span ng-bind="game.data.date.month"></span> 月 - 
+							令牌 <span ng-bind="game.data.command"></span> 枚
 						</div>
-						<div class="profiles">
-							<ul>
-								<li class="profile clearfix" ng-repeat="country in gameData.kingdoms">
-									<div class="profile-top">
-										<div class="profile-image">
-											<div class="image">?</div>
+						<div class="top-msg inner-msg" ng-if="msg.top">
+							<div id="hero-selection" ng-if="scene == 'kingdomSelection'">
+								<div class="options">
+									<ul class="clearfix">
+										<li ng-repeat="kingdom in game.data.kingdoms">
+											<a href="#" class="clearfix" ng-click="showKingdomInfo(kingdom)">
+												<div class="lord-name" ng-bind='kingdom.lord.name'></div>
+												<div class="city">
+													<span>X</span>
+													<span ng-bind='kingdom.cities.length'></span>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="bottom-msg inner-msg" ng-if="msg.bottom">
+							<div class="msg-confirm" ng-if="msg.type == 'confirm'">
+								<p>确定选 <strong>{{msg.bottom.lord.name}}</strong> 军吗？ <span> 确定 </span></p>
+							</div>
+							<div class="msg-body" ng-if="msg.body">
+								{{msg.body}}
+							</div>
+							<div class="profiles" ng-if="scene == 'kingdomSelection'">
+								<div class="msg-cp clearfix">
+									<div class="lord-info clearfix">
+										<div class="lord-profile">
+											<div class="lord-overlay"></div>
+											<canvas id="lord"></canvas>
 										</div>
-										<div class="profile-info">
-											<div class="title">
-												<span ng-if='country.lord.isLord'>君主</span>
-												<span ng-if='!country.lord.isLord' ng-bind='country.lord.title.name'></span> - 
-												<span ng-bind='country.lord.name'></span>
+										<div class="lord-data">
+											<h2>{{msg.bottom.lord.name}}</h2>
+											<div class="ability">
+												<ul>
+													<li>
+														<strong>擅长</strong> <span ng-bind='msg.bottom.lord.army.name'></span>
+													</li>
+													<li>
+														<strong>武器</strong> <span class="weapon" ng-bind='msg.bottom.lord.weapon.name'></span>
+														&nbsp;&nbsp;
+														<strong>防具</strong> <span class="armor" ng-bind='msg.bottom.lord.armor.name'></span>
+													</li>
+													<li>
+														<strong>体</strong>
+														<span ng-bind='msg.bottom.lord.props.hp.max'></span>
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<strong>武</strong>
+														<span ng-bind='msg.bottom.lord.props.str'></span>
+													</li>
+													<li>
+														<strong>统</strong>
+														<span ng-bind='msg.bottom.lord.props.command'></span>
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<strong>谋</strong>
+														<span ng-bind='msg.bottom.lord.props.tac'></span>
+													</li>
+													<li>
+														<strong>政</strong>
+														<span ng-bind='msg.bottom.lord.props.pol'></span>
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<strong>德</strong>
+														<span ng-bind='msg.bottom.lord.props.influ'></span>
+													</li>
+												</ul>
 											</div>
-											<div>
-												-- 等级 <span ng-bind='country.lord.level'></span> --
-											</div>
-											<div>
-												<span>功绩</span> <span ng-bind='country.lord.exp'></span>
-											</div>
-											<div>
-												擅长 <span ng-bind='country.lord.army.name'></span>
-												部队 <span ng-bind='country.lord.title.army.current'></span> 人
-											</div>
-											<div>
-												<span class="weapon" ng-bind='country.lord.weapon.name'></span>
-												<span class="armor" ng-bind='country.lord.armor.name'></span>
-											</div>
-										</div>
-										<div class="profile-props">
-											<ul class="clearfix">
-												<li>
-													<span>体</span>
-													<span ng-bind='country.lord.props.hp.max'></span>
-												</li>
-												<li>
-													<span>武</span>
-													<span ng-bind='country.lord.props.str'></span>
-												</li>
-												<li>
-													<span>统</span>
-													<span ng-bind='country.lord.props.command'></span>
-												</li>
-												<li>
-													<span>谋</span>
-													<span ng-bind='country.lord.props.tac'></span>
-												</li>
-												<li>
-													<span>政</span>
-													<span ng-bind='country.lord.props.pol'></span>
-												</li>
-												<li>
-													<span>德</span>
-													<span ng-bind='country.lord.props.influ'></span>
-												</li>
-											</ul>
 										</div>
 									</div>
-									<div class="profile-bottom">
-										<div class="weapon"></div>
-										<div class="armor"></div>
+									<div class="country-info">
+										<h2>国力</h2>
+										<ul>
+											<li>
+												<p><strong>总城市:</strong> <span>{{msg.bottom.statistics.total.cities}}</span> 座</p>
+											</li>
+											<li>
+												<p><strong>总将领:</strong> <span>{{msg.bottom.statistics.total.generals}}</span> 人</p>
+											</li>
+											<li>
+												<p><strong>总黄金:</strong> <span>{{msg.bottom.statistics.total.money}}</span> 斤</p>
+											</li>
+											<li>
+												<p><strong>总粮草:</strong> <span>{{msg.bottom.statistics.total.food}}</span> 石</p>
+											</li>
+											<li>
+												<p><strong>总人口:</strong> <span>{{msg.bottom.statistics.total.population}}</span> 人</p>
+											</li>
+											<li>
+												<p><strong>总战力:</strong> <span>{{msg.bottom.statistics.total.soliders}}</span> 人</p>
+											</li>
+										</ul>
 									</div>
-								</li>
-							</ul>
+								</div>
+								
+								<!-- <ul>
+									<li class="profile clearfix">
+										<div class="profile-top">
+											<div class="profile-image">
+												<div class="image">?</div>
+											</div>
+											<div class="profile-info">
+												<div class="title">
+													<span ng-if='country.lord.isLord'>君主</span>
+													<span ng-if='!country.lord.isLord' ng-bind='country.lord.title.name'></span> - 
+													<span ng-bind='country.lord.name'></span>
+												</div>
+												<div>
+													-- 等级 <span ng-bind='country.lord.level'></span> --
+												</div>
+												<div>
+													<span>功绩</span> <span ng-bind='country.lord.exp'></span>
+												</div>
+												<div>
+													擅长 <span ng-bind='country.lord.army.name'></span>
+													部队 <span ng-bind='country.lord.title.army.current'></span> 人
+												</div>
+												<div>
+													<span class="weapon" ng-bind='country.lord.weapon.name'></span>
+													<span class="armor" ng-bind='country.lord.armor.name'></span>
+												</div>
+											</div>
+											<div class="profile-props">
+												<ul class="clearfix">
+													<li>
+														<span>体</span>
+														<span ng-bind='country.lord.props.hp.max'></span>
+													</li>
+													<li>
+														<span>武</span>
+														<span ng-bind='country.lord.props.str'></span>
+													</li>
+													<li>
+														<span>统</span>
+														<span ng-bind='country.lord.props.command'></span>
+													</li>
+													<li>
+														<span>谋</span>
+														<span ng-bind='country.lord.props.tac'></span>
+													</li>
+													<li>
+														<span>政</span>
+														<span ng-bind='country.lord.props.pol'></span>
+													</li>
+													<li>
+														<span>德</span>
+														<span ng-bind='country.lord.props.influ'></span>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="profile-bottom">
+											<div class="weapon"></div>
+											<div class="armor"></div>
+										</div>
+									</li>
+								</ul> -->
+							</div>
+						</div>
+						<div class="aside-msg inner-msg" ng-if="msg.aside"></div>
+						<div class="event-msg inner-msg" ng-if="msg.event"></div>
+						<div class="popup-msg inner-msg" ng-if="msg.popup"></div>
+
+						<div class="mapDialog {{msg.position}}" ng-class="{'active': msg.isBattle < 0}">
+							<div class="msg-aside" ng-if="msg.data">
+								<h1>{{msg.data.name}}</h1> <span>城</span>
+								<span class="counsellor">太守 - <strong>{{msg.data.counsellor.name}}</strong></span>
+								<ul class="city-info">
+									<li>
+										<strong>黄金</strong> - <span>{{msg.data.money}}</span> 斤
+									</li>
+									<li>
+										<strong>军粮</strong> - <span>{{msg.data.food}}</span> 石
+									</li>
+									<li>
+										<strong>土地</strong> - <span>{{msg.data.agriculture.current}}</span>
+									</li>
+									<li>
+										<strong>产业</strong> - <span>{{msg.data.merchant.current}}</span>
+									</li>
+									<li>
+										<strong>人口</strong> - <span>{{msg.data.population}}</span> 人
+									</li>
+									<li>
+										<strong>防灾</strong> - <span>{{msg.data.disasterPrevention}}</span> %
+									</li>
+									<li>
+										<strong>宝物</strong> - <span>{{msg.data.precious}}</span> 件
+									</li>
+									<li>
+										<strong>税收</strong> - <span>{{msg.data.tax}}</span> 成
+									</li>
+									<li>
+										<strong>民心</strong> - <span>{{msg.data.morale}}</span>
+									</li>
+									<li>
+										<strong>将领</strong> - <span>{{msg.data.generals.length}}</span> 名
+									</li>
+									<li>
+										<strong>军士</strong> - <span>{{msg.data.solider}}</span> 名
+									</li>
+								</ul>
+							</div>
+							<div class="msg-dialog">
+								<!-- <div class="msg-body">{{msg.body}}</div> -->
+								<div class="operations" ng-if="msg.operational">
+									<nav class="main-nav">
+										<ul>
+											<li class="policy">
+												<div class="title">内政</div>
+												<div class="opts-icon"></div>
+											</li>
+											<li class="millitary">
+												<div class="title">军政</div>
+												<div class="opts-icon"></div>
+											</li>
+											<li class="tactic">
+												<div class="title">策略</div>
+												<div class="opts-icon"></div>
+											</li>
+											<li class="human-resource">
+												<div class="title">人事</div>
+												<div class="opts-icon"></div>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
 						</div>
 					</div>
+					
 				</div>
+				
 				<div ng-if="scene == 2" id="map" ng-click="closeMsg($event)">
 					<div class="map">
-						<ul ng-repeat="kingdom in gameData.kingdoms">
+						<ul ng-repeat="kingdom in game.data.kingdoms">
 							<li ng-repeat="city in kingdom.cities" class="city {{cityClass(city.isLargeCity,city.isActive)}}" 
 							style="left:{{city.pos.x}}%;top:{{city.pos.y}}%;" ng-click="openCity(city)">
 								<div class="content" style="background-color: #{{kingdom.color}};">

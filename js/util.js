@@ -39,5 +39,46 @@ Util.prototype.isIn = function(single, group){
 	return false;
 }
 
+Util.prototype.drawRadarChart = function(opt){
 
+	var data = {
+    	labels: opt.labels,
+	    datasets: [
+	        {
+	            label: opt.name,
+	            backgroundColor: "rgba(237,12,113,0.1)",
+	            borderColor: "rgba(237,12,113,.4)",
+	            pointBackgroundColor: "rgba(237,12,113,.5)",
+	            pointBorderColor: "#fff",
+	            pointHoverBackgroundColor: "#fff",
+	            pointHoverBorderColor: "rgba(237,12,113,.7)",
+	            data: opt.data
+	        }
+	    ]
+	};
+
+	var options = {
+    	legend: {
+	        display: false
+	    },
+	    scale: {
+			ticks: {
+				beginAtZero: true,
+				max: 100,
+				stepSize: 60
+			}
+		}
+	};
+
+	setTimeout(function(){
+		window.chart = new Chart(opt.ctx, {
+		    type: 'radar',
+		    data: data,
+		    options: options
+		});
+	},300)
+
+	
+
+}
 

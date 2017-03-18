@@ -1,55 +1,64 @@
-var game = angular.module("game",[]);													
-game.controller("main", ['$scope', function($scope){
+var game = angular.module("game",['ngAnimate'])
 
-	$scope.game = {};
+.controller("main", ['$scope', function($scope){
 
-	// scene 1: open page
-	// scene 2: map page
-	// scene 3: battle page
-	// $scope.scene = 1;
+	$scope.game = new Game();
 
-	// debug code:
-	$scope.scene = 2;
-
-	// sub scene 0: open page
-	// sub scene 1: lord selection
-	$scope.subScene = 0;
+	$scope.scene = "gameStart";
 
 	// globl variable to contain msg info
-	$scope.msg = null;
+	$scope.msg = {
+		top: null,
+		bottom: null,
+		aside: null,
+		popup: null,
+		event: null
+	}
 
 
 	// debug code:
+	$scope.scene = "kingdomSelection";
 	$scope.game = new Game().init();
-
-	$scope.game.selectKindom(1);
-
-	$scope.game.run();
-
 	console.log($scope.game)
+	$scope.msg.top = $scope.game.data.kingdoms;
+	// $scope.game.selectKindom(1);
 
-	
-	// $scope.playerKingdom = $scope.gameData.kingdoms[0];
-	// console.log("game data:");
-	// console.log($scope.gameData);
-	// console.log("player kingdom:");
-	// console.log($scope.playerKingdom);
+	// $scope.game.run();
 
-	if($scope.scene == 1){
+	// console.log($scope.game)
+
+
+
+	if($scope.scene == "gameStart"){
 		// start game
 		$scope.startGame = function(){
 			// trun to lord selection page
-			$scope.subScene = 1;
-			$scope.gameData = game.newGame();
+			$scope.scene = "kingdomSelection";
+			$scope.game.init();
+			console.log($scope.game)
+		}
+
+	}
+
+
+	if($scope.scene == "kingdomSelection"){
+		
+		$scope.showKingdomInfo = function(kingdom){
+			$scope.msg.bottom = kingdom;
+			$scope.msg.type = 'confirm';
+			setTimeout(function(){
+				$scope.game.displayGeneralRadarChart(kingdom.lord);
+			},0);
 		}
 
 		$scope.lordSelected = function(kingdom){
-			$scope.playerKingdom = kingdom;
-			$scope.scene = 2;
+			$scope.game.selectKindom(kingdom.id);
+			$scope.scene = "map";
 		}
+
 	}
 
-	if($scope.scene == 2){
+	if($scope.scene == "map"){
 
 		$scope.cityClass = function(isLargeCity, isActive){
 			

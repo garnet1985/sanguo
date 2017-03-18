@@ -14,8 +14,8 @@ Entity.prototype.target = function(data){
 Entity.prototype.calculatePopulation = function(){
 
 	this.entity.forEach(function(city){
-		var factor = city.agriculture.current * .8 
-		+ city.merchant.current * .3 
+		var factor = city.agriculture.current * .7 
+		+ city.merchant.current * .2 
 		+ city.morale * .2 
 		+ city.disasterPrevention * .1;
 		city.population = Math.round(factor) * 10000;
@@ -59,6 +59,39 @@ Entity.prototype.calculateLevel = function(){
 			person.level++;
 		}
 	});
+	return this;
+}
+
+Entity.prototype.calculateStatistics = function(){
+
+	var tmp = this.util.turnToArray(this.entity);
+
+	tmp.arr.forEach(function(kingdom){
+		kingdom.statistics = {}
+		kingdom.statistics.total = {}
+		kingdom.statistics.total.cities = kingdom.cities.length;
+		kingdom.statistics.total.generals = 0;
+		kingdom.statistics.total.money = 0;
+		kingdom.statistics.total.food = 0;
+		kingdom.statistics.total.soliders = 0;
+		kingdom.statistics.total.population = 0;
+		if(kingdom.statistics.total.cities){
+			kingdom.cities.forEach(function(city){
+				kingdom.statistics.total.generals += city.generals.length;
+				kingdom.statistics.total.money += city.money;
+				kingdom.statistics.total.food += city.food;
+				kingdom.statistics.total.soliders += city.solider;
+				kingdom.statistics.total.population += city.population;
+			});
+		}
+	});
+
+	if(tmp.notArr){
+		this.entity = tmp.arr.pop();
+	}else{
+		this.entity = tmp.arr;
+	}
+
 	return this;
 }
 

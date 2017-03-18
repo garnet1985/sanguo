@@ -1,6 +1,6 @@
 function Game(){
 
-	this.gameData = angular.copy(window.gameData);
+	this.data = angular.copy(window.gameData);
 
 	this.myKingdom = null;
 
@@ -35,7 +35,7 @@ Game.prototype.selectKindom = function(id){
 
 	var _this = this;
 
-	this.gameData.kingdoms.forEach(function(kingdom){
+	this.data.kingdoms.forEach(function(kingdom){
 		if(kingdom.id != id){
 			kingdom.isAI = true;
 			_this.aiKingdoms.push(kingdom);
@@ -45,7 +45,7 @@ Game.prototype.selectKindom = function(id){
 		}
 	})
 
-	this.gameData.kingdoms.sort(function(){
+	this.data.kingdoms.sort(function(){
 		return Math.random() > 0.5 ? -1 : 1;
 	})
 
@@ -53,9 +53,9 @@ Game.prototype.selectKindom = function(id){
 }
 
 Game.prototype.init = function(){
-	this.gameData = this.buildData();
-	this.gameData = this.calculateData();
-	this.gameData.date = angular.copy(window.gameData.gameConstant.gameStartDate);
+	this.data = this.buildData();
+	this.data = this.calculateData();
+	this.data.date = angular.copy(window.gameData.gameConstant.gameStartDate);
 	return this;
 }
 
@@ -64,46 +64,48 @@ Game.prototype.buildData = function(){
 	this.model.loadPerson();
 	this.model.loadCities();
 	this.model.loadKingdoms();
-	return this.gameData;
+	this.data = this.model.data;
+	return this.data;
 }
 
 Game.prototype.calculateData = function(){
 	this.entity
-	.target(this.gameData.cities)
+	.target(this.data.cities)
 	.calculatePopulation()
 	.calculateMorale()
 	.calculateCityScale()
-	.target(this.gameData.kingdoms)
+	.target(this.data.kingdoms)
 	.calculateCommands()
-	.target(this.gameData.people)
+	.calculateStatistics()
+	.target(this.data.people)
 	.calculateLevel();
-	return this.gameData;
+	return this.data;
 }
 
 Game.prototype.newMonth = function(){
-	this.gameData.date.month++;
-	if(this.gameData.date.month > 12){
-		this.gameData.date.month = 1;
-		this.gameData.date.year++;
+	this.data.date.month++;
+	if(this.data.date.month > 12){
+		this.data.date.month = 1;
+		this.data.date.year++;
 	}
-	return this.gameData.date;
+	return this.data.date;
 }
 
 Game.prototype.run = function(){
 
 	var _this = this;
 
-	if(this.player == this.gameData.kingdoms.length){
+	if(this.player == this.data.kingdoms.length){
 		this.player = 0;
 		this.newMonth();
-		console.log(this.gameData.date);
+		console.log(this.data.date);
 	}
 
 	var runKingdom = function(){
 		clearTimeout(_this.timer);
-		console.log(_this.gameData.kingdoms[_this.player].isAI);
-		if(_this.gameData.kingdoms[_this.player].isAI){
-			_this.entity.target(_this.gameData.kingdoms[_this.player]).autoRun(function(){
+		console.log(_this.data.kingdoms[_this.player].isAI);
+		if(_this.data.kingdoms[_this.player].isAI){
+			_this.entity.target(_this.data.kingdoms[_this.player]).autoRun(function(){
 				_this.player++;
 				_this.run();
 			});
@@ -121,17 +123,23 @@ Game.prototype.run = function(){
 	}, 1500);
 }
 
-Game.prototype.isEndOfPlayerRound = function(){
-	if(this.myKingdom.command == 0){
-		this.myKingdom.restoreCommand();
-		this.run(this.nextPlayer)
-		return true;
-	}
-	return false;
+// Game.prototype.isEndOfPlayerRound = function(){
+// 	if(this.myKingdom.command == 0){
+// 		this.myKingdom.restoreCommand();
+// 		this.run(this.nextPlayer)
+// 		return true;
+// 	}
+// 	return false;
+// }
+
+Game.prototype.displayGeneralRadarChart = function(general){
+	this.util.drawRadarChart({
+		ctx: "lord",
+		labels: ["武", "统", "谋", "政", "德", "体"],
+		name: general.name,
+		data: [general.props.str, general.props.command ,general.props.tac, general.props.pol, general.props.influ, general.props.hp.max]
+	})
 }
-
-
-
 
 
 

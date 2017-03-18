@@ -45,7 +45,6 @@ window.gameData = {
 			disasterPrevention: 50,
 			precious: 0,
 			generals: [2,6],
-			leader: 2,
 			counsellor: 2,
 			morale: 0,
 			solider: 22000
@@ -73,7 +72,6 @@ window.gameData = {
 			disasterPrevention: 35,
 			precious: 0,
 			generals: [3,5],
-			leader: 3,
 			counsellor: 5,
 			morale: 0,
 			solider: 40000
@@ -101,7 +99,6 @@ window.gameData = {
 			disasterPrevention: 45,
 			precious: 0,
 			generals: [1,4],
-			leader: 4,
 			counsellor: 1,
 			morale: 0,
 			solider: 23000
@@ -170,14 +167,14 @@ window.gameData = {
 			name: "刘备",
 			props: {
 				hp: {
-					current: 81,
-					max: 81
+					current: 78,
+					max: 78
 				},
-				str: 82,
-				tac: 75,
-				pol: 83,
+				str: 80,
+				tac: 74,
+				pol: 71,
 				influ: 100,
-				command: 82,
+				command: 85,
 				fame: 60,
 				loyality: 95,
 				ambition: 100,
@@ -230,9 +227,9 @@ window.gameData = {
 					max: 97
 				},
 				str: 97,
-				tac: 75,
-				pol: 45,
-				influ: 96,
+				tac: 78,
+				pol: 63,
+				influ: 90,
 				command: 94,
 				fame: 30,
 				loyality: 97,
@@ -324,14 +321,14 @@ window.gameData = {
 		},
 		{
 			id: 2,
-			lord: 3,
+			lord: 6,
 			color: '333333',
 			cities: [2],
 			ancestor: [],
 		},
 		{
 			id: 3,
-			lord: 1,
+			lord: 3,
 			color: 'ed0c71',
 			cities: [3],
 			ancestor: [],
@@ -532,7 +529,5 @@ window.gameData = {
 				max: 5000
 			}
 		}
-	],
-	// 执行顺序
-	order: [1,2]
+	]
 };
