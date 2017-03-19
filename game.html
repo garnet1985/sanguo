@@ -74,7 +74,6 @@
 								<div class="msg-cp clearfix">
 									<div class="lord-info clearfix">
 										<div class="lord-profile">
-											<div class="lord-overlay"></div>
 											<canvas id="lord"></canvas>
 										</div>
 										<div class="lord-data">
@@ -138,69 +137,6 @@
 										</ul>
 									</div>
 								</div>
-								
-								<!-- <ul>
-									<li class="profile clearfix">
-										<div class="profile-top">
-											<div class="profile-image">
-												<div class="image">?</div>
-											</div>
-											<div class="profile-info">
-												<div class="title">
-													<span ng-if='country.lord.isLord'>君主</span>
-													<span ng-if='!country.lord.isLord' ng-bind='country.lord.title.name'></span> - 
-													<span ng-bind='country.lord.name'></span>
-												</div>
-												<div>
-													-- 等级 <span ng-bind='country.lord.level'></span> --
-												</div>
-												<div>
-													<span>功绩</span> <span ng-bind='country.lord.exp'></span>
-												</div>
-												<div>
-													擅长 <span ng-bind='country.lord.army.name'></span>
-													部队 <span ng-bind='country.lord.title.army.current'></span> 人
-												</div>
-												<div>
-													<span class="weapon" ng-bind='country.lord.weapon.name'></span>
-													<span class="armor" ng-bind='country.lord.armor.name'></span>
-												</div>
-											</div>
-											<div class="profile-props">
-												<ul class="clearfix">
-													<li>
-														<span>体</span>
-														<span ng-bind='country.lord.props.hp.max'></span>
-													</li>
-													<li>
-														<span>武</span>
-														<span ng-bind='country.lord.props.str'></span>
-													</li>
-													<li>
-														<span>统</span>
-														<span ng-bind='country.lord.props.command'></span>
-													</li>
-													<li>
-														<span>谋</span>
-														<span ng-bind='country.lord.props.tac'></span>
-													</li>
-													<li>
-														<span>政</span>
-														<span ng-bind='country.lord.props.pol'></span>
-													</li>
-													<li>
-														<span>德</span>
-														<span ng-bind='country.lord.props.influ'></span>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="profile-bottom">
-											<div class="weapon"></div>
-											<div class="armor"></div>
-										</div>
-									</li>
-								</ul> -->
 							</div>
 						</div>
 						<div class="aside-msg inner-msg" ng-if="msg.aside"></div>
@@ -277,7 +213,7 @@
 					
 				</div>
 				
-				<div ng-if="scene == 2" id="map" ng-click="closeMsg($event)">
+				<div ng-if="scene == 'map'" id="map" ng-click="closeMsg($event)">
 					<div class="map">
 						<ul ng-repeat="kingdom in game.data.kingdoms">
 							<li ng-repeat="city in kingdom.cities" class="city {{cityClass(city.isLargeCity,city.isActive)}}" 
@@ -294,7 +230,7 @@
 						
 					</div>
 				</div>
-				<div ng-if="scene == 3" id="battle">
+				<div ng-if="scene == 'battle'" id="battle">
 					<canvas></canvas>
 				</div>
 			</div>

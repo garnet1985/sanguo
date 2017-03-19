@@ -41,17 +41,21 @@ Util.prototype.isIn = function(single, group){
 
 Util.prototype.drawRadarChart = function(opt){
 
+	if(window.chart){
+		window.chart.destroy();
+	}
+
 	var data = {
     	labels: opt.labels,
 	    datasets: [
 	        {
 	            label: opt.name,
-	            backgroundColor: "rgba(237,12,113,0.1)",
-	            borderColor: "rgba(237,12,113,.4)",
-	            pointBackgroundColor: "rgba(237,12,113,.5)",
+	            backgroundColor: "rgba(255,75,100,0.2)",
+	            borderColor: "rgba(255,75,100,.8)",
+	            pointBackgroundColor: "rgba(255,75,100,.5)",
 	            pointBorderColor: "#fff",
 	            pointHoverBackgroundColor: "#fff",
-	            pointHoverBorderColor: "rgba(237,12,113,.7)",
+	            pointHoverBorderColor: "rgba(255,75,100,.7)",
 	            data: opt.data
 	        }
 	    ]
@@ -65,20 +69,17 @@ Util.prototype.drawRadarChart = function(opt){
 			ticks: {
 				beginAtZero: true,
 				max: 100,
-				stepSize: 60
+				stepSize: 60,
+				display: false,
 			}
 		}
 	};
 
-	setTimeout(function(){
-		window.chart = new Chart(opt.ctx, {
-		    type: 'radar',
-		    data: data,
-		    options: options
-		});
-	},300)
-
-	
+	window.chart = new Chart(opt.ctx, {
+	    type: 'radar',
+	    data: data,
+	    options: options
+	});
 
 }
 
