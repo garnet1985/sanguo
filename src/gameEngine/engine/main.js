@@ -8,6 +8,7 @@ function Game(){
 Game.prototype.init = function(){
 	entity.init().then((data) => {
 		this.gameDataCache.data = data;
+		console.log(this.gameDataCache)
 	});
 }
 

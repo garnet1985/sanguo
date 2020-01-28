@@ -15,6 +15,7 @@ export default {
 		general: 'general.json',
 		kingdom: 'kingdom.json',
 		weapon: 'weapon.json',
-		weaponType: 'weaponType.json'
+		weaponType: 'weaponType.json',
+		newGameCache: 'newGameCache.json'
 	}
 }

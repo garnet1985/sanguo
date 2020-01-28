@@ -10,7 +10,8 @@ function Conf(){
 	this.docRoot = '';
 	this.dbName = {
 		app: 'db',
-		doc: 'customized'
+		doc: 'db',
+		saveGame: 'saveGame'
 	}
 }
 

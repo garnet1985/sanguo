@@ -12,6 +12,19 @@ Storage.prototype.load = function(fileName){
 	return this.do('load', fileName);
 }
 
+Storage.prototype.saveGame = function(fileName, data){
+	return this.do('save', fileName, {
+		db: 'saveGame',
+		data
+	});
+}
+
+Storage.prototype.loadGame = function(fileName){
+	return this.do('load', fileName, {
+		db: 'saveGame'
+	});
+}
+
 Storage.prototype.loadSysDb = function(fileName){
 	return this.do('load', fileName, {
 		db: 'sys'
