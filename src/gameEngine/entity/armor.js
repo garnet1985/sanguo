@@ -1,10 +1,12 @@
-import Entity from './entity';
-import conf from '../../conf';
+class Armor {
+	constructor(entity){
+		for(const key in entity){
+			this[key] = entity[key];
+		}
+	}
+	build(){
 
-class Armor extends Entity {
-	constructor(fileName){
-		super(fileName, 'id')
 	}
 }
 
-export default new Armor(conf.fileName.armor);
+export default Armor;

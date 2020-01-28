@@ -1,16 +1,15 @@
-import Entity from './entity';
-import conf from '../../conf';
-
-class Kingdom extends Entity {
-	constructor(fileName){
-		super(fileName, 'id')
+class Kingdom {
+	constructor(entity){
+		for(const key in entity){
+			this[key] = entity[key];
+		}
 	}
 	build(){
-
+		
 	}
 }
 
-export default new Kingdom(conf.fileName.kingdom);
+export default Kingdom;
 
 // function Kingdom(initData){
 // 	this.id 						= initData.id;

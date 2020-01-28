@@ -1,12 +1,11 @@
-import Entity from './entity';
-import conf from '../../conf';
-
-class WeaponType extends Entity {
-	constructor(fileName){
-		super(fileName, 'id')
+class WeaponType {
+	constructor(entity){
+		for(const key in entity){
+			this[key] = entity[key];
+		}
 	}
 	build(){
 
 	}
 }
-export default new WeaponType(conf.fileName.weaponType);
+export default WeaponType;

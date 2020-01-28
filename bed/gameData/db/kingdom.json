@@ -6,7 +6,9 @@
 			"en": "Cao"
 		},
 		"capital": 1,
+		"cities": [1],
 		"reputation": 15,
+		"color": "#007dba",
 		"isCustomized": false
 	},
 	{
@@ -16,7 +18,9 @@
 			"en": "Liu"
 		},
 		"capital": 2,
+		"cities": [2],
 		"reputation": 5,
+		"color": "#1b1b1b",
 		"isCustomized": false
 	}
 ]

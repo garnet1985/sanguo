@@ -1,15 +1,14 @@
-import Entity from './entity';
-import conf from '../../conf';
-
-class General extends Entity {
-	constructor(fileName){
-		super(fileName, 'id')
+class General {
+	constructor(entity){
+		for(const key in entity){
+			this[key] = entity[key];
+		}
 	}
 	build(){
 
 	}
-	getMaxAllowedMilitary(){
-		
+	getMaxAllowedMilitary(general){
+		this.maxMilitary = Math.round(this.command / 10 + 1) * 1000;
 	}
 	getOverallForce(){
 		
@@ -19,7 +18,7 @@ class General extends Entity {
 	}
 }
 
-export default new General(conf.fileName.general);
+export default General;
 
 // function General(initData){
 // 	this.id 					= initData.id;
