@@ -1,0 +1,14 @@
+@import '../../vars.scss';
+@import '../../mixin.scss';
+
+.game-select{
+	background-color: $black;
+	.command-box{
+		@include grid;
+		border-radius: $radius;
+		max-width: 500px;
+		text-align: center;
+		margin-top: 30px;
+		padding: 30px;
+	}
+}

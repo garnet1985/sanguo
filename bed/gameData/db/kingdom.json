@@ -1,0 +1,22 @@
+[
+	{
+		"id": 1,
+		"name": {
+			"cn": "曹",
+			"en": "Cao"
+		},
+		"capital": 1,
+		"reputation": 15,
+		"isCustomized": false
+	},
+	{
+		"id": 2,
+		"name": {
+			"cn": "刘",
+			"en": "Liu"
+		},
+		"capital": 2,
+		"reputation": 5,
+		"isCustomized": false
+	}
+]

@@ -1,0 +1,11 @@
+[
+	{
+		"id": 1,
+		"name": {
+			"cn": "皮铠",
+			"en": "leather armor"
+		},
+		"startPoint": 1,
+		"power": 1
+	}
+]

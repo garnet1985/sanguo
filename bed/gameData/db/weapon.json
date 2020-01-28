@@ -1,0 +1,22 @@
+[
+	{
+		"id": 1,
+		"name": {
+			"cn": "短剑",
+			"en": "short sword"
+		},
+		"startPoint": 1,
+		"power": 1,
+		"category": 1
+	},
+	{
+		"id": 2,
+		"name": {
+			"cn": "朴刀",
+			"en": "po sword"
+		},
+		"startPoint": 1,
+		"power": 1,
+		"category": 2
+	}
+]

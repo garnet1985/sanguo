@@ -1,0 +1,83 @@
+[
+	{
+		"id": 1,
+		"name": {
+			"cn": "曹操",
+			"en": "Cao Cao"
+		},
+		"ambition": 100,
+		"aggressive": 90,
+		"morality": 88,
+		"hp": 68,
+		"politics": 93,
+		"command": 92,
+		"intelligence": 89,
+		"power": 57,
+		"skill": 53,
+		"extent": 100,
+		"caprice": 80,
+		"experience": 70,
+		"bornYear": 163,
+		"deadYear": 220,
+		"title": 1,
+		"heroType": 1,
+		"weapon": 1,
+		"armor": 1,
+		"isLord": true,
+		"isCustomized": false
+	},
+	{
+		"id": 2,
+		"name": {
+			"cn": "刘备",
+			"en": "Liu Bei"
+		},
+		"ambition": 100,
+		"aggressive": 70,
+		"morality": 97,
+		"hp": 77,
+		"politics": 72,
+		"command": 76,
+		"intelligence": 70,
+		"power": 76,
+		"skill": 77,
+		"extent": 100,
+		"caprice": 80,
+		"experience": 0,
+		"bornYear": 164,
+		"deadYear": 223,
+		"title": 1,
+		"heroType": 1,
+		"weapon": 1,
+		"armor": 1,
+		"isLord": true,
+		"isCustomized": false
+	},
+	{
+		"id": 3,
+		"name": {
+			"cn": "孙坚",
+			"en": "Sun Jian"
+		},
+		"ambition": 85,
+		"aggressive": 60,
+		"morality": 89,
+		"hp": 89,
+		"politics": 60,
+		"command": 89,
+		"intelligence": 55,
+		"power": 86,
+		"skill": 90,
+		"extent": 100,
+		"caprice": 80,
+		"experience": 70,
+		"bornYear": 148,
+		"deadYear": 203,
+		"title": 1,
+		"heroType": 1,
+		"weapon": 1,
+		"armor": 1,
+		"isLord": true,
+		"isCustomized": false
+	}
+]

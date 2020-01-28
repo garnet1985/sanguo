@@ -1,0 +1,14 @@
+{
+	"gameSelectScene": {
+		"GAME_TITLE": "三国志",
+		"GAME_VERSION": "版本",
+		"GAME_START": "开始游戏",
+		"LOAD_SAVED": "读取进度",
+		"DIFFICULT": "难度",
+		"EASY": "简单",
+		"NORMAL": "一般",
+		"HARD": "困难",
+		"NIGHTMIRE": "梦魇",
+		"BACK": "后退"
+	}
+}

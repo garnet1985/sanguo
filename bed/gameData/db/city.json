@@ -1,0 +1,50 @@
+[
+	{
+		"id": 1,
+		"name": {
+			"cn": "洛阳",
+			"en": "Luo Yang"
+		},
+		"morale": 35,
+		"treasure": 0,
+		"generals": [1],
+		"leader": 1,
+		"farmland": 85,
+		"industry": 75,
+		"infrastructure": 95,
+		"military": 2000,
+		"disasterPrevention": 30
+	},
+	{
+		"id": 2,
+		"name": {
+			"cn": "长安",
+			"en": "Chang An"
+		},
+		"morale": 45,
+		"treasure": 0,
+		"generals": [2],
+		"leader": 2,
+		"farmland": 60,
+		"industry": 100,
+		"infrastructure": 100,
+		"military": 6000,
+		"disasterPrevention": 40
+	},
+	{
+		"id": 3,
+		"name": {
+			"cn": "长沙",
+			"en": "Chang Sha"
+		},
+		"morale": 45,
+		"treasure": 0,
+		"generals": [3],
+		"leader": 3,
+		"farmland": 45,
+		"industry": 35,
+		"infrastructure": 50,
+		"military": 2000,
+		"disasterPrevention": 40
+	}
+]

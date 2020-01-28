@@ -1,0 +1,32 @@
+@import '../../vars.scss';
+@import '../../mixin.scss';
+
+.cp-game-select-banner{
+	width: 100%;
+	height: 50vh;
+	position: relative;
+	background-color: $black;
+	border-bottom: $border;
+	.primary-text{
+		@include center;
+		position: absolute;
+		color: $white;
+		font-size: 4rem;
+		text-transform: uppercase;
+		text-shadow: 3px 3px 7px #ccc;
+	}
+	.game-version{
+		color: $white;
+		position: absolute;
+		right: .75rem;
+		bottom: -1.75rem;
+		font-size: .875rem;
+	}
+}
+.cn{
+	.cp-game-select-banner{
+		.primary-text{
+			font-size: 6rem;
+		}
+	}
+}
