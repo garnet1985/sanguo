@@ -1,20 +1,15 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path');
-const API = require(path.resolve('../bed'));
-
-const conf = {
-  windowWidth: 1280,
-  windowHeight: 800,
-  icon: path.join(__dirname, '/public/favico.ico'),
-}
+const MainApp = require('../bed');
+const mainApp = new MainApp(app, ipcMain);
 
 let mainWindow;
 
 function createWindow(isDev) {
   mainWindow = new BrowserWindow({
-    width: conf.windowWidth, 
-    height: conf.windowHeight,
-    icon: conf.icon,
+    width: 1280, 
+    height: 800,
+    icon: path.join(__dirname, '/public/favico.ico'),
     webPreferences: {
       nodeIntegration: true
     }
@@ -34,8 +29,6 @@ app.on('ready', () => {
     isDevMode = false;
   }
   createWindow(isDevMode);
-  const api = new API();
-  api.init(app.getPath('documents'));
 });
 
 app.on('window-all-closed', () => {

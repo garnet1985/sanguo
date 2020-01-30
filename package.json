@@ -5,10 +5,9 @@
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
-    "start": "npm run build && electron .",
-    "dev": "concurrently \"BROWSER=none npm run app\" \"wait-on http://localhost:3000 && electron . --dev\"",
+    "start": "concurrently \"react-scripts start\" \"wait-on http://localhost:3000 && electron . --dev\"",
+    "app": "npm run build && electron .",
     "pack": "npm run build && electron-builder -m",
-    "app": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
