@@ -11,7 +11,8 @@ function Conf(){
 	this.dbName = {
 		app: 'db',
 		doc: 'db',
-		saveGame: 'saveGame'
+		saveGame: 'saveGame',
+		customized: 'customized'
 	}
 }
 

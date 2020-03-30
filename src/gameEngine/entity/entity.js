@@ -1,37 +1,28 @@
 import { storage } from '../../services';
 import conf from '../../conf';
-
-import Kingdom from './kingdom';
-import General from './general';
-import City from './city';
-import Weapon from './weapon';
-import WeaponType from './weaponType';
-import Armor from './armor';
-
 class Entity {
 	constructor(){
+    this.requiredInitEntity = conf.entityFiles;
     this.instances = {};
 	}
   init(){
     return this.load().then((data) => {
-      const gameData = this.build(data);
+      const gameData = this.createInstances(data).build();
       return gameData;
     });
+  }
+  createInstances(loadedData) {
+    loadedData.forEach((d, idx) => {
+      this.instances[this.requiredInitEntity[idx].name] = this.createInstance(d, this.requiredInitEntity[idx].class);
+    });
+    return this;
   }
   createInstance(entities, Cls){
     return entities.map((entity) => {
       return new Cls(entity);
     });
   }
-  build(data){
-    this.instances = {
-      kingdoms: this.createInstance(data.kingdoms, Kingdom),
-      generals: this.createInstance(data.generals, General),
-      cities: this.createInstance(data.cities, City),
-      weapons: this.createInstance(data.weapons, Weapon),
-      weaponTypes: this.createInstance(data.weaponTypes, WeaponType),
-      armors: this.createInstance(data.armors, Armor)
-    }
+  build(){
     const weapons = this.buildWeapons(this.instances.weapons, this.instances.weaponTypes);
     const generals = this.buildGenerals(this.instances.generals, this.instances.armors, weapons);
     const cities = this.buildCities(this.instances.cities, generals);
@@ -39,23 +30,11 @@ class Entity {
     return kingdoms;
   }
   load(type){
-    return Promise.all([
-      storage.load(conf.fileName.kingdom),
-      storage.load(conf.fileName.general),
-      storage.load(conf.fileName.city),
-      storage.load(conf.fileName.weapon),
-      storage.load(conf.fileName.weaponType),
-      storage.load(conf.fileName.armor)
-    ]).then((promises) => {
-      return {
-        kingdoms: promises[0],
-        generals: promises[1],
-        cities: promises[2],
-        weapons: promises[3],
-        weaponTypes: promises[4],
-        armors: promises[5]
-      }
+    let promises = [];
+    this.requiredInitEntity.forEach( entity => {
+      promises.push(storage.load(entity.fileName));
     });
+    return Promise.all(promises);
   }
   buildWeapons (weapons, weaponTypes){
     for(let weapon of weapons){

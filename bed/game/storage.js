@@ -8,6 +8,7 @@ function Storage(){
   this.docRoot = conf.docRoot;
   this.sysDbPath = path.resolve(conf.appRoot, conf.dbName.app);
   this.docDbPath = path.resolve(conf.docRoot, conf.dbName.doc);
+  this.customizedDbPath = path.resolve(conf.docRoot, conf.dbName.customized);
   this.docSavePath = path.resolve(conf.docRoot, conf.dbName.saveGame);
 }
 
@@ -16,6 +17,9 @@ Storage.prototype.getDir = function(dbPath){
 	switch (dbPath) {
 		case 'sys':
 			dir = this.sysDbPath;
+			break;
+		case 'customized':
+			dir = this.customizedDbPath;
 			break;
 		case 'saveGame':
 			dir = this.docSavePath;
@@ -38,7 +42,7 @@ Storage.prototype.save = function(fileName, opts = {}){
 }
 
 Storage.prototype.copyToDoc = function(){
-	if(!this.file.isFolderExist(conf.docRoot)){
+	if(!this.file.isFolderExist(this.docDbPath)){
 		this.file.createFolder(this.docDbPath);
 		const files = this.file.getAllFilesFromDir(this.sysDbPath) || [];
 		files.forEach( fileName => {
