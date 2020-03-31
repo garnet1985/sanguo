@@ -7,8 +7,8 @@ class Entity {
 	}
   init(){
     return this.load().then((data) => {
-      const gameData = this.createInstances(data).build();
-      return gameData;
+      this.createInstances(data).build();
+      return this.instances;
     });
   }
   createInstances(loadedData) {
@@ -23,11 +23,9 @@ class Entity {
     });
   }
   build(){
-    const weapons = this.buildWeapons(this.instances.weapons, this.instances.weaponTypes);
-    const generals = this.buildGenerals(this.instances.generals, this.instances.armors, weapons);
-    const cities = this.buildCities(this.instances.cities, generals);
-    const kingdoms = this.buildKingdoms(this.instances.kingdoms, cities);
-    return kingdoms;
+    // order is important!
+    this.buildWeapons().buildGenerals().buildCities().buildKingdoms();
+    return this;
   }
   load(type){
     let promises = [];
@@ -36,34 +34,34 @@ class Entity {
     });
     return Promise.all(promises);
   }
-  buildWeapons (weapons, weaponTypes){
-    for(let weapon of weapons){
-      for(let weaponType of weaponTypes){
+  buildWeapons (){
+    for(let weapon of this.instances.weapons){
+      for(let weaponType of this.instances.weaponTypes){
         if(weapon.category === weaponType.id){
           weapon.category = weaponType;
         }
       }
     }
-    return weapons;
+    return this;
   }
-  buildGenerals (generals, armors, weapons){
-    for(let general of generals){
-      for(let weapon of weapons){
+  buildGenerals (){
+    for(let general of this.instances.generals){
+      for(let weapon of this.instances.weapons){
         if(general.weapon === weapon.id){
           general.weapon = weapon;
         }
       }
-      for(let armor of armors){
+      for(let armor of this.instances.armors){
         if(general.armor === armor.id){
           general.armor = armor;
         }
       }
     }
-    return generals;
+    return this;
   }
-  buildCities (cities, generals){
-    for(let general of generals){
-      for(let city of cities){
+  buildCities (){
+    for(let general of this.instances.generals){
+      for(let city of this.instances.cities){
         if(city.leader === general.id){
           city.leader = general;
         }
@@ -74,11 +72,11 @@ class Entity {
         }
       }
     }
-    return cities;
+    return this;
   }
-  buildKingdoms (kingdoms, cities){
-    for(let city of cities){
-      for(let kingdom of kingdoms){
+  buildKingdoms (){
+    for(let city of this.instances.cities){
+      for(let kingdom of this.instances.kingdoms){
         if(kingdom.capital === city.id){
           kingdom.capital = city;
         }
@@ -89,7 +87,7 @@ class Entity {
         }
       }
     }
-    return kingdoms;
+    return this;
   }
 }
 

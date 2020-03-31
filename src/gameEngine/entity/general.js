@@ -1,20 +1,32 @@
+import levelSys from '../engine/levelSys';
+
 class General {
 	constructor(entity){
 		for(const key in entity){
 			this[key] = entity[key];
 		}
+		this.ability = {};
+		this.init();
 	}
-	build(){
-
+	init(){
+		this.getAbilityDisplayValue();
 	}
-	getMaxAllowedMilitary(general){
-		this.maxMilitary = Math.round(this.command / 10 + 1) * 1000;
-	}
-	getOverallForce(){
-		
-	}
-	getLevel(){
-		
+	getAbilityDisplayValue(){
+		for(let key in this){
+			switch(key){
+				case 'charm':
+				case 'politics':
+				case 'command':
+				case 'intelligence':
+				case 'power':
+				case 'hp':
+					this['ability'][key] = levelSys.getLevel(this[key]);
+					break;
+				default:
+					break;
+			}
+		}
+		return this;
 	}
 }
 
@@ -26,7 +38,7 @@ export default General;
 // 	this.experience 	= initData.experience;
 // 	this.level				= this.getLevel(initData.experience);
 // 	// 德
-// 	this.morality 		= initData.morality;
+// 	this.charm 		= initData.charm;
 // 	// 体
 // 	this.hp 					= initData.hp;
 // 	// 政

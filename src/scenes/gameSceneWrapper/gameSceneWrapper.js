@@ -49,8 +49,8 @@ class Game extends Component {
   _init(){
     game.init();
     lang.set('cn');
-    this._toScene(conf.scene.GAME_SELECT);
-    // this._toScene(conf.scene.ROLE_SELECT);
+    // this._toScene(conf.scene.GAME_SELECT);
+    this._toScene(conf.scene.ROLE_SELECT);
   }
 
   _toScene(id){

@@ -25,3 +25,22 @@ Preview of prod app.<br>
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
+
+		// 野心
+		"ambition"
+		// 侵略性
+		"aggressive"
+		// 魅力
+		"morality"
+		// 耐力
+		"hp": 9,
+		// 政略
+		"politics"
+		// 统帅
+		"command"
+		// 谋略
+		"intelligence"
+		// 武力
+		"power"
+		// 义理
+		"caprice"			
