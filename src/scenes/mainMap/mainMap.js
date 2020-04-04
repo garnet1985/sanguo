@@ -14,7 +14,7 @@ class MainMap extends Component {
   render() {
     return (
       <div className="main-map scene">
-      	Main Main
+      	Main Map
       </div>
     );
   }

@@ -12,7 +12,9 @@ class Game extends Component {
     super(props);
     this.state = {
       scene: 0,
-      lang: 'cn'
+      lang: 'cn',
+      data: {},
+      playerKingdom: null
     }
   }
 
@@ -25,7 +27,7 @@ class Game extends Component {
   			layout = <GameSelect />
   			break;
       case conf.scene.ROLE_SELECT:
-        layout = <RoleSelect />
+        layout = <RoleSelect kingdoms = { this.state.data.kingdoms } lang = { this.state.lang } />
         break;
   		case conf.scene.MAIN_MAP:
   			layout = <MainMap />
@@ -47,7 +49,11 @@ class Game extends Component {
   }
 
   _init(){
-    game.init();
+    game.init().then((gameData) => {
+      this.setState({
+        data: gameData.data
+      })
+    })
     lang.set('cn');
     // this._toScene(conf.scene.GAME_SELECT);
     this._toScene(conf.scene.ROLE_SELECT);
@@ -74,6 +80,14 @@ class Game extends Component {
         scene: newScene
       });
     });
+
+    event.on('click.userLordSelected', (kingdom) => {
+      this.setState({
+        playerKingdom: kingdom,
+        scene: conf.scene.MAIN_MAP
+      });
+    });
+    
   }
 
   render() {
